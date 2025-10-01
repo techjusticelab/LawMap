@@ -1,0 +1,3 @@
+# cmd
+
+Entrypoints for executables.

@@ -1,0 +1,227 @@
+{
+  "id": "root",
+  "name": "Primary Law Sources",
+  "children": [
+    {
+      "id": "federal",
+      "name": "Federal",
+      "children": [
+        {
+          "id": "fed-constitution",
+          "name": "United States Constitution",
+          "sources": [
+            "https://www.govinfo.gov/app/collection/GPO-CONAN",
+            "https://www.archives.gov/founding-docs/constitution"
+          ]
+        },
+        {
+          "id": "fed-statutes",
+          "name": "US Code (federal statutes)",
+          "sources": [
+            "https://uscode.house.gov/download/download.shtml",
+            "https://www.govinfo.gov/app/collection/USCODE"
+          ]
+        },
+        {
+          "id": "fed-regs",
+          "name": "Regulations",
+          "children": [
+            {
+              "id": "cfr",
+              "name": "Code of Federal Regulations (annual)",
+              "sources": [
+                "https://www.govinfo.gov/app/collection/CFR"
+              ]
+            },
+            {
+              "id": "ecfr",
+              "name": "eCFR (current)",
+              "sources": [
+                "https://www.ecfr.gov/"
+              ]
+            },
+            {
+              "id": "federal-register",
+              "name": "Federal Register (rules/notices)",
+              "sources": [
+                "https://www.federalregister.gov/"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fed-caselaw",
+          "name": "Case Law (opinions)",
+          "sources": [
+            "https://www.supremecourt.gov/opinions/opinions.aspx",
+            "https://www.ca9.uscourts.gov/opinions/",
+            "https://www.courtlistener.com/"
+          ]
+        },
+        {
+          "id": "fed-sentencing",
+          "name": "Federal Sentencing Guidelines",
+          "sources": [
+            "https://www.ussc.gov/guidelines"
+          ]
+        },
+        {
+          "id": "fed-dockets",
+          "name": "Dockets and Filings",
+          "sources": [
+            "https://pacer.uscourts.gov",
+            "https://www.courtlistener.com/recap/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "california",
+      "name": "California",
+      "children": [
+        {
+          "id": "ca-law",
+          "name": "California Law (Codes + Constitution)",
+          "sources": [
+            "https://leginfo.legislature.ca.gov/"
+          ],
+          "children": [
+            {
+              "id": "ca-constitution",
+              "name": "California Constitution (CONS)",
+              "sources": [
+                "https://leginfo.legislature.ca.gov/"
+              ]
+            },
+            {
+              "id": "ca-codes",
+              "name": "California Codes (statutes)",
+              "note": "All codes are accessed via LegInfo; listed once to avoid duplication.",
+              "sources": [
+                "https://leginfo.legislature.ca.gov/"
+              ],
+              "children": [
+                { "id": "pen", "name": "Penal Code (PEN)" },
+                { "id": "evid", "name": "Evidence Code (EVID)" },
+                { "id": "veh", "name": "Vehicle Code (VEH)" },
+                { "id": "wic", "name": "Welfare and Institutions Code (WIC)" },
+                { "id": "hsc", "name": "Health and Safety Code (HSC)" },
+                { "id": "bpc", "name": "Business and Professions Code (BPC)" },
+                { "id": "civ", "name": "Civil Code (CIV)" },
+                { "id": "ccp", "name": "Code of Civil Procedure (CCP)" },
+                { "id": "com", "name": "Commercial Code (COM)" },
+                { "id": "corp", "name": "Corporations Code (CORP)" },
+                { "id": "edc", "name": "Education Code (EDC)" },
+                { "id": "elec", "name": "Elections Code (ELEC)" },
+                { "id": "fam", "name": "Family Code (FAM)" },
+                { "id": "fin", "name": "Financial Code (FIN)" },
+                { "id": "fgc", "name": "Fish and Game Code (FGC)" },
+                { "id": "fac", "name": "Food and Agricultural Code (FAC)" },
+                { "id": "gov", "name": "Government Code (GOV)" },
+                { "id": "hnc", "name": "Harbors and Navigation Code (HNC)" },
+                { "id": "ins", "name": "Insurance Code (INS)" },
+                { "id": "lab", "name": "Labor Code (LAB)" },
+                { "id": "mvc", "name": "Military and Veterans Code (MVC)" },
+                { "id": "prob", "name": "Probate Code (PROB)" },
+                { "id": "pcc", "name": "Public Contract Code (PCC)" },
+                { "id": "prc", "name": "Public Resources Code (PRC)" },
+                { "id": "puc", "name": "Public Utilities Code (PUC)" },
+                { "id": "rtc", "name": "Revenue and Taxation Code (RTC)" },
+                { "id": "shc", "name": "Streets and Highways Code (SHC)" },
+                { "id": "uic", "name": "Unemployment Insurance Code (UIC)" },
+                { "id": "wat", "name": "Water Code (WAT)" }
+              ]
+            },
+            {
+              "id": "ca-legacy",
+              "name": "Measures prior to 1999 (archive)",
+              "sources": [
+                "http://leginfo.ca.gov"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca-rules-court",
+          "name": "California Rules of Court",
+          "sources": [
+            "https://www.courts.ca.gov/rules-forms/rules-court"
+          ]
+        },
+        {
+          "id": "ca-local-rules",
+          "name": "Local Rules (Superior Courts)",
+          "sources": [
+            "https://www.lacourt.org",
+            "https://www.sfsuperiorcourt.org",
+            "https://www.sdcourt.ca.gov",
+            "https://www.saccourt.ca.gov"
+          ]
+        },
+        {
+          "id": "ca-jury-instructions",
+          "name": "Jury Instructions",
+          "children": [
+            {
+              "id": "calcrim",
+              "name": "CALCRIM (Criminal)",
+              "sources": [
+                "https://www.courts.ca.gov/partners/317.htm"
+              ]
+            },
+            {
+              "id": "caci",
+              "name": "CACI (Civil)",
+              "sources": [
+                "https://www.courts.ca.gov/partners/317.htm"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca-caselaw",
+          "name": "California Case Law (opinions)",
+          "sources": [
+            "https://www.courts.ca.gov/opinions.htm",
+            "https://www.courtlistener.com/"
+          ]
+        },
+        {
+          "id": "ca-regs",
+          "name": "California Regulations",
+          "children": [
+            {
+              "id": "ccr",
+              "name": "California Code of Regulations (CCR) – browse",
+              "sources": [
+                "https://govt.westlaw.com/calregs/"
+              ]
+            },
+            {
+              "id": "oal",
+              "name": "Office of Administrative Law publications",
+              "sources": [
+                "https://oal.ca.gov/publications/"
+              ]
+            },
+            {
+              "id": "agency-policies",
+              "name": "Agency policies (selected)",
+              "sources": [
+                "https://www.cdcr.ca.gov",
+                "https://www.dmv.ca.gov"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca-bills",
+          "name": "Legislative Materials (bills/histories)",
+          "sources": [
+            "https://leginfo.legislature.ca.gov/"
+          ]
+        }
+      ]
+    }
+  ]
+}
