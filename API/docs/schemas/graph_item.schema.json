@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graph_item.schema.json",
+  "oneOf": [
+    { "$ref": "./graph_node.schema.json" },
+    { "$ref": "./graph_edge.schema.json" }
+  ]
+}

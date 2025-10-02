@@ -1,0 +1,14 @@
+[
+  {"name":"US Code (OLRC)","jurisdictions":["US"],"codes":["USC"],"kind":"bulk","urls":["https://uscode.house.gov/download/download.shtml"]},
+  {"name":"GovInfo CFR","jurisdictions":["US"],"codes":["CFR"],"kind":"bulk","urls":["https://www.govinfo.gov/app/collection/CFR"]},
+  {"name":"eCFR","jurisdictions":["US"],"codes":["CFR"],"kind":"web","urls":["https://www.ecfr.gov/"]},
+  {"name":"Federal Register","jurisdictions":["US"],"codes":["FR"],"kind":"web","urls":["https://www.federalregister.gov/"]},
+  {"name":"US Sentencing Commission","jurisdictions":["US"],"codes":["USSG"],"kind":"web","urls":["https://www.ussc.gov/guidelines"]},
+  {"name":"CourtListener (opinions/RECAP)","jurisdictions":["US","CA"],"codes":["OPN"],"kind":"web","urls":["https://www.courtlistener.com/"]},
+  {"name":"National Archives (Constitution)","jurisdictions":["US"],"codes":["CONST"],"kind":"web","urls":["https://www.archives.gov/founding-docs/constitution"]},
+  {"name":"CA LegInfo","jurisdictions":["CA"],"codes":["CIV","PEN","CONS","BPC","CRC"],"kind":"mixed","urls":["https://leginfo.legislature.ca.gov/"]},
+  {"name":"CA OAL / CCR","jurisdictions":["CA"],"codes":["CCR"],"kind":"web","urls":["https://oal.ca.gov/publications/"]},
+  {"name":"California Attorney General Opinions","jurisdictions":["CA"],"codes":["OPN"],"kind":"web","urls":["https://oag.ca.gov/opinions"]},
+  {"name":"California Courts (opinions)","jurisdictions":["CA"],"codes":["OPN"],"kind":"web","urls":["https://www.courts.ca.gov/opinions.htm"]}
+]
+

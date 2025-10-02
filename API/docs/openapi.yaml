@@ -1,0 +1,578 @@
+openapi: 3.0.3
+info:
+  title: LawMap Graph API
+  version: 1.0.0
+  description: REST API for traversing a hierarchical legal knowledge graph.
+servers:
+  - url: http://localhost:8080
+    description: Local development
+tags:
+  - name: Health
+  - name: Nodes
+  - name: Graph
+  - name: Search
+  - name: Versions
+  - name: Sources
+  - name: Topics
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                required: [ok]
+              examples:
+                ok:
+                  value: { ok: true }
+
+  /nodes/{id}:
+    get:
+      tags: [Nodes]
+      summary: Get a node by canonical ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+          description: Canonical node ID (e.g., CA:CIV:T02:CH02:§3342)
+        - name: expand
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [parents, children]
+          description: Optionally include parent path or children in response
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated NodeDTO fields to include
+      responses:
+        '200':
+          description: The node
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeDTO'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /nodes/{id}/children:
+    get:
+      tags: [Nodes]
+      summary: Get direct children of a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+        - name: labels
+          in: query
+          required: false
+          description: Optional filter by labels (comma-separated)
+          schema:
+            type: array
+            items:
+              type: string
+            example: [SECTION, CHAPTER]
+          style: form
+          explode: false
+        - name: sort
+          in: query
+          required: false
+          description: Sort children
+          schema:
+            type: string
+            enum: [order, title, -title]
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated NodeDTO fields to include
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, default: 1000, minimum: 1, maximum: 1000 }
+        - name: offset
+          in: query
+          required: false
+          schema: { type: integer, default: 0, minimum: 0 }
+        - name: cursor
+          in: query
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: Children nodes and edges
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphSliceDTO'
+
+  /nodes/{id}/parents:
+    get:
+      tags: [Nodes]
+      summary: Get ancestry path to root
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Parent path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathDTO'
+
+  /graph:
+    get:
+      tags: [Graph]
+      summary: Get a graph slice from a root node
+      parameters:
+        - name: root
+          in: query
+          required: true
+          schema: { type: string }
+          description: Root node ID
+        - name: depth
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 5, default: 1 }
+        - name: labels
+          in: query
+          required: false
+          description: Optional filter for labels
+          schema:
+            type: array
+            items:
+              type: string
+            example: [SECTION, CHAPTER]
+          style: form
+          explode: false
+      responses:
+        '200':
+          description: Graph slice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphSliceDTO'
+
+  /search:
+    get:
+      tags: [Search]
+      summary: Search nodes
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string }
+        - name: jurisdiction
+          in: query
+          required: false
+          schema: { type: string, example: CA }
+        - name: code
+          in: query
+          required: false
+          schema: { type: string, example: CIV }
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, default: 20, minimum: 1, maximum: 100 }
+        - name: cursor
+          in: query
+          required: false
+          schema: { type: string }
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [title, -title, id, -id]
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResultDTO'
+
+  /diff/{id}:
+    get:
+      tags: [Versions]
+      summary: Get textual diff and version list for a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Diff and versions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string }
+                  versions:
+                    type: array
+                    items: { $ref: '#/components/schemas/Version' }
+                  diff: { type: string }
+
+  /versions/{id}:
+    get:
+      tags: [Versions]
+      summary: Get all versions for a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Version'
+
+  components:
+    schemas:
+    SourceDescriptor:
+      type: object
+      properties:
+        name: { type: string }
+        jurisdictions:
+          type: array
+          items: { type: string }
+        codes:
+          type: array
+          items: { type: string }
+        kind: { type: string, enum: [bulk, api, web, mixed] }
+        urls:
+          type: array
+          items: { type: string }
+    Version:
+      type: object
+      properties:
+        fetched_at:
+          type: string
+          format: date-time
+        effective_date:
+          type: string
+          example: '2024-01-01'
+        hash:
+          type: string
+      required: [fetched_at, hash]
+
+    SourceMeta:
+      type: object
+      properties:
+        name: { type: string }
+        url: { type: string }
+        retrieved_at:
+          type: string
+          format: date-time
+
+    NodeDTO:
+      type: object
+      properties:
+        id: { type: string }
+        labels:
+          type: array
+          items: { type: string }
+        title: { type: string }
+        citation: { type: string }
+        text: { type: string }
+        props:
+          type: object
+          additionalProperties: true
+        version:
+          $ref: '#/components/schemas/Version'
+        sources:
+          type: array
+          items: { $ref: '#/components/schemas/SourceMeta' }
+      required: [id, labels]
+
+    EdgeDTO:
+      type: object
+      properties:
+        id: { type: string }
+        type:
+          type: string
+          enum: [PARENT_OF, CITES, AMENDS, REPEALS, INTERPRETS, SAME_AS, HAS_TOPIC]
+        from_id: { type: string }
+        to_id: { type: string }
+        props:
+          type: object
+          additionalProperties: true
+      required: [type, from_id, to_id]
+
+    GraphSliceDTO:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items: { $ref: '#/components/schemas/NodeDTO' }
+        edges:
+          type: array
+          items: { $ref: '#/components/schemas/EdgeDTO' }
+        total:
+          type: integer
+          description: Total matching items (before pagination)
+        next_offset:
+          nullable: true
+          oneOf:
+            - type: integer
+            - type: 'null'
+      required: [nodes, edges]
+
+    PathDTO:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items: { type: string }
+        edges:
+          type: array
+          items: { type: string }
+      required: [nodes]
+
+    SearchItem:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [node]
+        id: { type: string }
+        title: { type: string }
+        snippet: { type: string }
+      required: [type, id]
+
+    SearchResultDTO:
+      type: object
+      properties:
+        query: { type: string }
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/SearchItem' }
+        next_cursor:
+          type: string
+      required: [items]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }
+            details:
+              nullable: true
+              oneOf:
+                - type: object
+                - type: string
+          required: [code, message]
+      required: [error]
+  /sources:
+    get:
+      tags: [Sources]
+      summary: List known ingestion sources
+      responses:
+        '200':
+          description: Sources capability list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SourceDescriptor'
+  /topics:
+    get:
+      tags: [Topics]
+      summary: List topic nodes
+      responses:
+        '200':
+          description: Topics list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topics:
+                    type: array
+                    items: { $ref: '#/components/schemas/NodeDTO' }
+
+  /topics/{id}:
+    get:
+      tags: [Topics]
+      summary: Get nodes associated with a topic
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Topic graph slice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphSliceDTO'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /nodes/{id}/citations:
+    get:
+      tags: [Nodes]
+      summary: Get nodes that cite a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+        - name: labels
+          in: query
+          required: false
+          description: Optional filter by labels (comma-separated)
+          schema:
+            type: array
+            items:
+              type: string
+            example: [OPINION, RULE]
+          style: form
+          explode: false
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated NodeDTO fields to include
+        - name: pin_cite_contains
+          in: query
+          required: false
+          schema: { type: string }
+        - name: context_contains
+          in: query
+          required: false
+          schema: { type: string }
+        - name: sort
+          in: query
+          required: false
+          description: Sort order
+          schema:
+            type: string
+            enum: [title, -title, id, -id]
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, default: 20, minimum: 1, maximum: 100 }
+        - name: offset
+          in: query
+          required: false
+          schema: { type: integer, default: 0, minimum: 0 }
+        - name: cursor
+          in: query
+          required: false
+          schema: { type: string }
+        - name: count_only
+          in: query
+          required: false
+          schema: { type: boolean, default: false }
+      responses:
+        '200':
+          description: Reverse citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphSliceDTO'
+  /nodes/{id}/cites:
+    get:
+      tags: [Nodes]
+      summary: Get nodes cited by a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+        - name: labels
+          in: query
+          required: false
+          description: Optional filter by labels (comma-separated)
+          schema:
+            type: array
+            items:
+              type: string
+            example: [SECTION, RULE]
+          style: form
+          explode: false
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated NodeDTO fields to include
+        - name: pin_cite_contains
+          in: query
+          required: false
+          schema: { type: string }
+        - name: context_contains
+          in: query
+          required: false
+          schema: { type: string }
+        - name: sort
+          in: query
+          required: false
+          description: Sort order
+          schema:
+            type: string
+            enum: [title, -title, id, -id]
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, default: 20, minimum: 1, maximum: 100 }
+        - name: offset
+          in: query
+          required: false
+          schema: { type: integer, default: 0, minimum: 0 }
+        - name: cursor
+          in: query
+          required: false
+          schema: { type: string }
+        - name: count_only
+          in: query
+          required: false
+          schema: { type: boolean, default: false }
+      responses:
+        '200':
+          description: Outgoing citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphSliceDTO'

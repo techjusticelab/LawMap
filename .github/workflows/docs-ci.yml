@@ -1,0 +1,31 @@
+name: Docs and Contracts CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lint OpenAPI
+        run: npx --yes @redocly/cli@latest lint API/docs/openapi.yaml
+
+      - name: Install Ajv (for JSONL validation)
+        run: npm i ajv@8 --no-save
+
+      - name: Validate fixtures (JSONL against schema)
+        run: node tools/validate-fixtures.mjs
+
+      - name: Check docs consistency
+        run: bash tools/check-docs.sh

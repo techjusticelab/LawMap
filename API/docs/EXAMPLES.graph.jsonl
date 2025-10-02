@@ -1,0 +1,81 @@
+{"type":"node","id":"CA","labels":["JURISDICTION"],"title":"California","props":{"jurisdiction":"CA"}}
+{"type":"node","id":"CA:CIV","labels":["CODE"],"title":"California Civil Code","props":{"jurisdiction":"CA","code":"CIV"}}
+{"type":"node","id":"CA:CIV:T02","labels":["TITLE"],"title":"Title 2","props":{"jurisdiction":"CA","code":"CIV","title_num":2}}
+{"type":"node","id":"CA:CIV:T02:CH02","labels":["CHAPTER"],"title":"Chapter 2","props":{"jurisdiction":"CA","code":"CIV","title_num":2,"chapter_num":2}}
+{"type":"node","id":"CA:CIV:T02:CH02:§3342","labels":["SECTION"],"title":"Section 3342. Dog bite liability","citation":"CIV § 3342","text":"Any owner of any dog is liable...","props":{"jurisdiction":"CA","code":"CIV","title_num":2,"chapter_num":2,"section_num":"3342"},"version":{"fetched_at":"2025-01-01T00:00:00Z","effective_date":"2024-01-01","hash":"sha256:example"},"sources":[{"name":"LegInfo","url":"https://leginfo.legislature.ca.gov/","retrieved_at":"2025-01-01T00:00:00Z"}]}
+{"type":"edge","id":"e1","edge_type":"PARENT_OF","from_id":"CA","to_id":"CA:CIV","props":{"order":1}}
+{"type":"edge","id":"e2","edge_type":"PARENT_OF","from_id":"CA:CIV","to_id":"CA:CIV:T02","props":{"order":1}}
+{"type":"edge","id":"e3","edge_type":"PARENT_OF","from_id":"CA:CIV:T02","to_id":"CA:CIV:T02:CH02","props":{"order":2}}
+{"type":"edge","id":"e4","edge_type":"PARENT_OF","from_id":"CA:CIV:T02:CH02","to_id":"CA:CIV:T02:CH02:§3342","props":{"order":10}}
+{"type":"node","id":"CA:OPN:People_v_Smith_2020_1","labels":["OPINION"],"title":"People v. Smith (2020)","text":"We interpret CIV § 3342...","props":{"jurisdiction":"CA"}}
+{"type":"edge","id":"e5","edge_type":"CITES","from_id":"CA:OPN:People_v_Smith_2020_1","to_id":"CA:CIV:T02:CH02:§3342","props":{"pin_cite":"§3342(b)"}}
+{"type":"edge","id":"e6","edge_type":"INTERPRETS","from_id":"CA:OPN:People_v_Smith_2020_1","to_id":"CA:CIV:T02:CH02:§3342"}
+{"type":"node","id":"CA:CIV:T02:CH02:§3343","labels":["SECTION"],"title":"Section 3343. Other liability","citation":"CIV § 3343","text":"...other text...","props":{"jurisdiction":"CA","code":"CIV","title_num":2,"chapter_num":2,"section_num":"3343"}}
+{"type":"edge","id":"e11","edge_type":"PARENT_OF","from_id":"CA:CIV:T02:CH02","to_id":"CA:CIV:T02:CH02:§3343","props":{"order":5}}
+{"type":"node","id":"CA:CRC","labels":["CODE"],"title":"California Rules of Court","props":{"jurisdiction":"CA","code":"CRC"}}
+{"type":"node","id":"CA:CRC:CH01","labels":["CHAPTER"],"title":"Chapter 1","props":{"jurisdiction":"CA","code":"CRC"}}
+{"type":"node","id":"CA:CRC:rule_1.1","labels":["RULE"],"title":"Rule 1.1. Title","citation":"CRC Rule 1.1","text":"These rules shall be known as the California Rules of Court.","props":{"jurisdiction":"CA","code":"CRC"}}
+{"type":"edge","id":"e7","edge_type":"PARENT_OF","from_id":"CA:CRC","to_id":"CA:CRC:CH01","props":{"order":1}}
+{"type":"edge","id":"e8","edge_type":"PARENT_OF","from_id":"CA:CRC:CH01","to_id":"CA:CRC:rule_1.1","props":{"order":1}}
+{"type":"node","id":"CA:CCR","labels":["CODE"],"title":"California Code of Regulations","props":{"jurisdiction":"CA","code":"CCR"}}
+{"type":"node","id":"CA:CCR:T15","labels":["TITLE"],"title":"Title 15","props":{"jurisdiction":"CA","code":"CCR","title_num":15}}
+{"type":"node","id":"CA:CCR:T15:§3044","labels":["REGULATION"],"title":"Section 3044. Certain regulation","citation":"15 CCR § 3044","text":"Regulatory text...","props":{"jurisdiction":"CA","code":"CCR","title_num":15,"section_num":"3044"}}
+{"type":"edge","id":"e9","edge_type":"PARENT_OF","from_id":"CA:CCR","to_id":"CA:CCR:T15","props":{"order":1}}
+{"type":"edge","id":"e10","edge_type":"PARENT_OF","from_id":"CA:CCR:T15","to_id":"CA:CCR:T15:§3044","props":{"order":44}}
+{"type":"node","id":"TOPIC:Dogs","labels":["TOPIC"],"title":"Dogs","props":{}}
+{"type":"edge","id":"e12","edge_type":"HAS_TOPIC","from_id":"CA:CIV:T02:CH02:§3342","to_id":"TOPIC:Dogs"}
+{"type":"edge","id":"e13","edge_type":"HAS_TOPIC","from_id":"CA:OPN:People_v_Smith_2020_1","to_id":"TOPIC:Dogs"}
+{"type":"node","id":"US","labels":["JURISDICTION"],"title":"United States","props":{"jurisdiction":"US"}}
+{"type":"node","id":"US:USC","labels":["CODE"],"title":"United States Code","props":{"jurisdiction":"US","code":"USC"}}
+{"type":"node","id":"US:USC:T18","labels":["TITLE"],"title":"Title 18 - Crimes and Criminal Procedure","props":{"jurisdiction":"US","code":"USC","title_num":18}}
+{"type":"node","id":"US:USC:T18:§1028A","labels":["SECTION"],"title":"§ 1028A. Aggravated identity theft","citation":"18 USC § 1028A","text":"...federal section text...","props":{"jurisdiction":"US","code":"USC","title_num":18,"section_num":"1028A"}}
+{"type":"node","id":"US:USC:T18:§924(e)","labels":["SECTION"],"title":"§ 924(e). Armed Career Criminal Act (ACCA)","citation":"18 USC § 924(e)","text":"...ACCA text...","props":{"jurisdiction":"US","code":"USC","title_num":18,"section_num":"924(e)"}}
+{"type":"edge","id":"u1","edge_type":"PARENT_OF","from_id":"US","to_id":"US:USC","props":{"order":1}}
+{"type":"edge","id":"u2","edge_type":"PARENT_OF","from_id":"US:USC","to_id":"US:USC:T18","props":{"order":18}}
+{"type":"edge","id":"u3","edge_type":"PARENT_OF","from_id":"US:USC:T18","to_id":"US:USC:T18:§1028A","props":{"order":1028}}
+{"type":"edge","id":"u4","edge_type":"PARENT_OF","from_id":"US:USC:T18","to_id":"US:USC:T18:§924(e)","props":{"order":924}}
+{"type":"node","id":"US:OPN:SCOTUS:Johnson_2015","labels":["OPINION"],"title":"Johnson v. United States (2015)","text":"We interpret 18 USC § 924(e)...","props":{"jurisdiction":"US"}}
+{"type":"edge","id":"u5","edge_type":"CITES","from_id":"US:OPN:SCOTUS:Johnson_2015","to_id":"US:USC:T18:§924(e)"}
+{"type":"edge","id":"u6","edge_type":"INTERPRETS","from_id":"US:OPN:SCOTUS:Johnson_2015","to_id":"US:USC:T18:§924(e)"}
+{"type":"node","id":"US:CFR","labels":["CODE"],"title":"Code of Federal Regulations","props":{"jurisdiction":"US","code":"CFR"}}
+{"type":"node","id":"US:CFR:T28","labels":["TITLE"],"title":"Title 28 - Judicial Administration","props":{"jurisdiction":"US","code":"CFR","title_num":28}}
+{"type":"node","id":"US:CFR:T28:§600.4","labels":["REGULATION"],"title":"§ 600.4 Jurisdiction","citation":"28 CFR § 600.4","text":"...reg text...","props":{"jurisdiction":"US","code":"CFR","title_num":28,"section_num":"600.4"}}
+{"type":"edge","id":"u7","edge_type":"PARENT_OF","from_id":"US","to_id":"US:CFR","props":{"order":2}}
+{"type":"edge","id":"u8","edge_type":"PARENT_OF","from_id":"US:CFR","to_id":"US:CFR:T28","props":{"order":28}}
+{"type":"edge","id":"u9","edge_type":"PARENT_OF","from_id":"US:CFR:T28","to_id":"US:CFR:T28:§600.4","props":{"order":600}}
+{"type":"node","id":"US:FRCP","labels":["CODE"],"title":"Federal Rules of Civil Procedure","props":{"jurisdiction":"US","code":"FRCP"}}
+{"type":"node","id":"US:FRCP:Rule_12","labels":["RULE"],"title":"Rule 12. Defenses and Objections","citation":"FRCP 12","text":"...rule text...","props":{"jurisdiction":"US","code":"FRCP"}}
+{"type":"edge","id":"u10","edge_type":"PARENT_OF","from_id":"US","to_id":"US:FRCP","props":{"order":3}}
+{"type":"edge","id":"u11","edge_type":"PARENT_OF","from_id":"US:FRCP","to_id":"US:FRCP:Rule_12","props":{"order":12}}
+{"type":"node","id":"US:CONST","labels":["CODE"],"title":"United States Constitution","props":{"jurisdiction":"US","code":"CONST"}}
+{"type":"node","id":"US:CONST:AmdIV","labels":["SECTION"],"title":"Amendment IV","citation":"U.S. Const. amend. IV","text":"The right of the people to be secure...","props":{"jurisdiction":"US","code":"CONST","section_num":"IV"}}
+{"type":"edge","id":"u12","edge_type":"PARENT_OF","from_id":"US","to_id":"US:CONST","props":{"order":0}}
+{"type":"edge","id":"u13","edge_type":"PARENT_OF","from_id":"US:CONST","to_id":"US:CONST:AmdIV","props":{"order":4}}
+{"type":"node","id":"US:USSG","labels":["CODE"],"title":"U.S. Sentencing Guidelines","props":{"jurisdiction":"US","code":"USSG"}}
+{"type":"node","id":"US:USSG:§2D1.1","labels":["RULE"],"title":"§2D1.1. Unlawful Manufacturing, Importing, Exporting, or Trafficking (Including Possession with Intent to Commit These Offenses); Attempt or Conspiracy","citation":"USSG §2D1.1","text":"...guideline text...","props":{"jurisdiction":"US","code":"USSG","section_num":"2D1.1"}}
+{"type":"edge","id":"u14","edge_type":"PARENT_OF","from_id":"US","to_id":"US:USSG","props":{"order":4}}
+{"type":"edge","id":"u15","edge_type":"PARENT_OF","from_id":"US:USSG","to_id":"US:USSG:§2D1.1","props":{"order":201}}
+{"type":"node","id":"CA:CONS","labels":["CODE"],"title":"California Constitution","props":{"jurisdiction":"CA","code":"CONS"}}
+{"type":"node","id":"CA:CONS:ArtI","labels":["CHAPTER"],"title":"Article I - Declaration of Rights","props":{"jurisdiction":"CA","code":"CONS"}}
+{"type":"node","id":"CA:CONS:ArtI:§13","labels":["SECTION"],"title":"Section 13. Searches and seizures","citation":"Cal. Const. art. I, § 13","text":"The right of the people to be secure...","props":{"jurisdiction":"CA","code":"CONS","section_num":"13"}}
+{"type":"edge","id":"c1","edge_type":"PARENT_OF","from_id":"CA","to_id":"CA:CONS","props":{"order":0}}
+{"type":"edge","id":"c2","edge_type":"PARENT_OF","from_id":"CA:CONS","to_id":"CA:CONS:ArtI","props":{"order":1}}
+{"type":"edge","id":"c3","edge_type":"PARENT_OF","from_id":"CA:CONS:ArtI","to_id":"CA:CONS:ArtI:§13","props":{"order":13}}
+{"type":"node","id":"US:FRE","labels":["CODE"],"title":"Federal Rules of Evidence","props":{"jurisdiction":"US","code":"FRE"}}
+{"type":"node","id":"US:FRE:Rule_401","labels":["RULE"],"title":"Rule 401. Test for Relevant Evidence","citation":"FRE 401","text":"...rule text...","props":{"jurisdiction":"US","code":"FRE"}}
+{"type":"edge","id":"u16","edge_type":"PARENT_OF","from_id":"US","to_id":"US:FRE","props":{"order":5}}
+{"type":"edge","id":"u17","edge_type":"PARENT_OF","from_id":"US:FRE","to_id":"US:FRE:Rule_401","props":{"order":401}}
+{"type":"node","id":"US:FRCRP","labels":["CODE"],"title":"Federal Rules of Criminal Procedure","props":{"jurisdiction":"US","code":"FRCRP"}}
+{"type":"node","id":"US:FRCRP:Rule_11","labels":["RULE"],"title":"Rule 11. Pleas","citation":"FRCrP 11","text":"...rule text...","props":{"jurisdiction":"US","code":"FRCRP"}}
+{"type":"edge","id":"u18","edge_type":"PARENT_OF","from_id":"US","to_id":"US:FRCRP","props":{"order":6}}
+{"type":"edge","id":"u19","edge_type":"PARENT_OF","from_id":"US:FRCRP","to_id":"US:FRCRP:Rule_11","props":{"order":11}}
+{"type":"node","id":"US:FRAP","labels":["CODE"],"title":"Federal Rules of Appellate Procedure","props":{"jurisdiction":"US","code":"FRAP"}}
+{"type":"node","id":"US:FRAP:Rule_4","labels":["RULE"],"title":"Rule 4. Appeal as of Right—When Taken","citation":"FRAP 4","text":"...rule text...","props":{"jurisdiction":"US","code":"FRAP"}}
+{"type":"edge","id":"u20","edge_type":"PARENT_OF","from_id":"US","to_id":"US:FRAP","props":{"order":7}}
+{"type":"edge","id":"u21","edge_type":"PARENT_OF","from_id":"US:FRAP","to_id":"US:FRAP:Rule_4","props":{"order":4}}
+{"type":"node","id":"CA:OPN:AG:2010_01","labels":["OPINION"],"title":"Cal. Atty. Gen. Op. 10-01","text":"Interprets application of CIV § 3342 in municipal settings...","props":{"jurisdiction":"CA"}}
+{"type":"edge","id":"c4","edge_type":"CITES","from_id":"CA:OPN:AG:2010_01","to_id":"CA:CIV:T02:CH02:§3342"}
+{"type":"edge","id":"c5","edge_type":"INTERPRETS","from_id":"CA:OPN:AG:2010_01","to_id":"CA:CIV:T02:CH02:§3342"}
+{"type":"node","id":"CA:OPN:CSC:Brendlin_2007","labels":["OPINION"],"title":"People v. Brendlin (2007)","text":"Discusses searches and seizures under Cal. Const. art. I, § 13...","props":{"jurisdiction":"CA"}}
+{"type":"edge","id":"c6","edge_type":"CITES","from_id":"CA:OPN:CSC:Brendlin_2007","to_id":"CA:CONS:ArtI:§13"}
+{"type":"edge","id":"c7","edge_type":"INTERPRETS","from_id":"CA:OPN:CSC:Brendlin_2007","to_id":"CA:CONS:ArtI:§13"}

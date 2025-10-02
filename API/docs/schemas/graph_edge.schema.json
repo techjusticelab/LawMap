@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graph_edge.schema.json",
+  "type": "object",
+  "required": ["type", "edge_type", "from_id", "to_id"],
+  "properties": {
+    "type": { "const": "edge" },
+    "edge_type": {
+      "type": "string",
+      "enum": ["PARENT_OF", "CITES", "AMENDS", "REPEALS", "INTERPRETS", "SAME_AS", "HAS_TOPIC"]
+    },
+    "from_id": { "type": "string" },
+    "to_id": { "type": "string" },
+    "props": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}
