@@ -1,0 +1,82 @@
+# LawMap API Configuration Example
+# Copy to config.yaml and customize for your environment
+
+server:
+  port: 8080
+  host: ""  # empty = listen on all interfaces
+  read_timeout: 30    # seconds
+  write_timeout: 30   # seconds
+
+storage:
+  backend: "postgres"  # Options: memory, postgres
+
+  # PostgreSQL connection (use DATABASE_URL env var for connection string)
+  postgres:
+    host: "localhost"        # or use connection string via DATABASE_URL
+    port: 5432
+    user: "postgres"
+    password: "password"
+    dbname: "lawmap"
+    sslmode: "require"       # require, disable, prefer
+
+  graph:
+    path: "./data/graph.db"  # for file-based backends (not used for postgres)
+    connection: ""            # for network backends
+    options: {}
+
+  blob:
+    path: "./data/blobs"
+    connection: ""
+    options: {}
+
+  index:
+    path: "./data/index"
+    connection: ""
+    options: {}
+
+sources:
+  - name: "CA LegInfo"
+    jurisdictions: ["CA"]
+    codes: ["CIV", "PEN", "CONS", "BPC", "CCP", "COM", "CORP", "EDC", "ELEC", "EVID", "FAM", "FIN", "FGC", "FAC", "GOV", "HNC", "HSC", "INS", "LAB", "MVC", "PROB", "PCC", "PRC", "PUC", "RTC", "SHC", "UIC", "VEH", "WAT", "WIC"]
+    kind: "mixed"  # bulk download + web scraping
+    urls:
+      - "https://leginfo.legislature.ca.gov/"
+    schedule: "monthly"
+    enabled: true
+    fetch_options:
+      rate_limit_per_second: 2
+      user_agent: "LawMap/0.1 (+https://github.com/yourorg/lawmap)"
+
+  - name: "US Code (OLRC)"
+    jurisdictions: ["US"]
+    codes: ["USC"]
+    kind: "bulk"
+    urls:
+      - "https://uscode.house.gov/download/download.shtml"
+    schedule: "monthly"
+    enabled: false  # enable when ready to ingest federal law
+    fetch_options:
+      format: "xml"
+
+  - name: "CourtListener"
+    jurisdictions: ["US", "CA"]
+    codes: ["OPN"]
+    kind: "api"
+    urls:
+      - "https://www.courtlistener.com/api/rest/v3/"
+    schedule: "weekly"
+    enabled: false
+    fetch_options:
+      api_key: "${COURTLISTENER_API_KEY}"  # set via environment variable
+
+scheduler:
+  enabled: false  # set to true to enable automatic ETL runs
+  default_schedule: "monthly"  # default for sources without explicit schedule
+  max_concurrent: 3            # max parallel ETL jobs
+  retry_attempts: 3
+  retry_delay_minutes: 5
+
+logging:
+  level: "info"      # debug, info, warn, error
+  format: "text"     # text or json
+  output: "stderr"   # stderr, stdout, or /path/to/file.log

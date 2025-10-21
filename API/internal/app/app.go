@@ -5,11 +5,13 @@ import (
     "os"
     httpapi "lawmap/internal/http"
     graphrepo "lawmap/internal/repo/graph"
+    "lawmap/internal/repo/db"
     conf "lawmap/internal/config"
 )
 
 type App struct {
-    Server *httpapi.Server
+    Server   *httpapi.Server
+    database *db.DB
 }
 
 func New() (*App, error) {
@@ -43,7 +45,7 @@ func New() (*App, error) {
         }
     }
     server := httpapi.NewServer(store, sources)
-    return &App{Server: server}, nil
+    return &App{Server: server, database: nil}, nil
 }
 
 func (a *App) Start() error {

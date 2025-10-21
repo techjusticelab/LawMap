@@ -10,16 +10,28 @@ import (
     "encoding/base64"
 
     dgraph "lawmap/internal/domain/graph"
-    graphrepo "lawmap/internal/repo/graph"
     conf "lawmap/internal/config"
 )
 
+// GraphStore defines the interface that both MemoryStore and PostgresStore implement.
+type GraphStore interface {
+    GetNode(id string) (*dgraph.Node, bool)
+    GetChildren(id string) ([]*dgraph.Node, []*dgraph.Edge)
+    GetParentsPath(id string) ([]string, []string)
+    SliceFromRoot(root string, depth int, labelFilter map[string]struct{}) ([]*dgraph.Node, []*dgraph.Edge, error)
+    Search(q string, jurisdiction, code string, limit int) []dgraph.Node
+    GetCitations(targetID string) ([]*dgraph.Node, []*dgraph.Edge)
+    GetOutgoingCitations(sourceID string) ([]*dgraph.Node, []*dgraph.Edge)
+    GetTopics() []*dgraph.Node
+    GetTopicAssociations(topicID string) ([]*dgraph.Node, []*dgraph.Edge)
+}
+
 type Server struct {
-    store   *graphrepo.MemoryStore
+    store   GraphStore
     sources []sourceDesc
 }
 
-func NewServer(store *graphrepo.MemoryStore, sourcesCfg []conf.SourceDescriptor) *Server {
+func NewServer(store GraphStore, sourcesCfg []conf.SourceDescriptor) *Server {
     // convert config to internal representation
     var sdescs []sourceDesc
     for _, s := range sourcesCfg {
